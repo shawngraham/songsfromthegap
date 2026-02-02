@@ -1,0 +1,8 @@
+
+{
+  "name": "Songs from the Gaps",
+  "description": "A mathematical sonic journey that transforms the semantic distance between Wikipedia articles into a multi-voiced melodic landscape using vector interpolation and Web Audio synthesis.",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
