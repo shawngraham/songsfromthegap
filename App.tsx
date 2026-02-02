@@ -9,9 +9,9 @@ const App: React.FC = () => {
   const [coords, setCoords] = useState<{lat: number, lon: number} | null>(null);
   const [articles, setArticles] = useState<WikiArticle[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
+  const [samplesLoading, setSamplesLoading] = useState<boolean>(true);
   const [exporting, setExporting] = useState<boolean>(false);
   
-  // Coordinate Search State
   const [searchLat, setSearchLat] = useState<string>('');
   const [searchLon, setSearchLon] = useState<string>('');
   const [searchRadius, setSearchRadius] = useState<string>('5000');
@@ -25,6 +25,9 @@ const App: React.FC = () => {
 
   useEffect(() => {
     playerRef.current = new MultiVoicePlayer();
+    playerRef.current.loadSamples().then(() => {
+      setSamplesLoading(false);
+    });
     return () => playerRef.current?.stop();
   }, []);
 
@@ -71,7 +74,6 @@ const App: React.FC = () => {
 
   const handleSelectNode = (article: WikiArticle) => {
     playerRef.current?.stop();
-    
     if (!origin || (origin && target)) {
       setOrigin(article);
       setTarget(undefined);
@@ -100,17 +102,12 @@ const App: React.FC = () => {
       };
 
       const voices: GeneratedVoice[] = [
-        { role: 'bass', audioBuffer: null, text: `Fundamental: ${origin.title}`, voiceName: 'Origin Sub' },
-        { role: 'harmony', audioBuffer: null, text: `Partial: ${target.title}`, voiceName: 'Target Tri' },
-        { role: 'melody', audioBuffer: null, text: `Sequence: ${intersection.length} intersection${intersection.length === 1 ? '' : 's'}`, voiceName: 'Structural engine' }
+        { role: 'bass', audioBuffer: null, text: `Solo Cello: ${origin.title}`, voiceName: 'Philharmonia Bass' },
+        { role: 'harmony', audioBuffer: null, text: `Strings: ${target.title}`, voiceName: 'Ensemble Wash' },
+        { role: 'melody', audioBuffer: null, text: `Celesta: ${intersection.length} intersection${intersection.length === 1 ? '' : 's'}`, voiceName: 'Glassworks' }
       ];
 
-      setSession({
-        gap,
-        voices,
-        isGenerating: false,
-        isPlaying: false
-      });
+      setSession({ gap, voices, isGenerating: false, isPlaying: false });
     }
   }, [origin, target]);
 
@@ -140,6 +137,16 @@ const App: React.FC = () => {
 
   return (
     <div className="flex flex-col h-screen h-[100dvh] overflow-hidden selection:bg-white/20 bg-[#050505]">
+      {samplesLoading && (
+        <div className="fixed inset-0 z-[100] bg-black flex items-center justify-center p-8">
+          <div className="text-center space-y-4 max-w-xs">
+            <div className="w-12 h-12 border-b-2 border-white rounded-full animate-spin mx-auto mb-6"></div>
+            <p className="text-[10px] uppercase tracking-[0.4em] text-white/40 font-bold">Initializing Acoustic Manifold</p>
+            <p className="text-[11px] text-white/20 italic leading-relaxed">Downloading and decoding instrument samples from the cloud...</p>
+          </div>
+        </div>
+      )}
+
       <header className="flex justify-between items-center px-4 md:px-8 py-3 md:py-6 z-30 shrink-0 border-b border-white/5 bg-black/60 backdrop-blur-xl">
         <div className="flex flex-col">
           <h1 className="text-lg md:text-3xl font-serif italic glow-text tracking-tight leading-none">Songs from the Gaps</h1>
@@ -288,7 +295,7 @@ const App: React.FC = () => {
                   </div>
 
                   <div className="space-y-3">
-                    <div className="text-[8px] uppercase tracking-widest text-white/30 font-bold">Sonic Synthesis</div>
+                    <div className="text-[8px] uppercase tracking-widest text-white/30 font-bold">Acoustic Synthesis</div>
                     <div className="space-y-3">
                       {session.voices.map((v, i) => (
                         <div key={i} className="flex gap-3 items-start group">
