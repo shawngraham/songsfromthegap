@@ -1,4 +1,4 @@
-...couldn't get the bloody workflow to build properly, so built locally then threw it up on Netlify here:
+...couldn't get the bloody workflow to build properly (edit: damn package-lock.json), so built locally then threw it up on Netlify here:
 
 [https://songsfromthegap.netlify.app/](https://songsfromthegap.netlify.app/)
 
