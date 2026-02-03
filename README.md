@@ -1,6 +1,10 @@
-# Songs from the Gaps: A Semantic Topology Sonification
+...couldn't get the bloody workflow to build properly, so built locally then threw it up on Netlify here:
 
-**Songs from the Gaps** is a mathematical sonic journey that transforms the semantic distance between Wikipedia articles into a multi-voiced melodic landscape. By projecting knowledge structures into a 2D manifold, the application allows users to select two disparate points of information and listen to the "bridge" that connects them.
+[https://songsfromthegap.netlify.app/](https://songsfromthegap.netlify.app/)
+
+# Songs from the Gap: A Semantic Topology Sonification
+
+**Songs from the Gap** is a mathematical sonic journey that transforms the semantic distance between Wikipedia articles into a multi-voiced melodic landscape. By projecting knowledge structures into a 2D manifold, the application allows users to select two disparate points of information and listen to the "bridge" that connects them.
 
 ## The Concept of the "Semantic Gap"
 
